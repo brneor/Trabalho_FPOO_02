@@ -43,15 +43,15 @@ public class MainView extends JFrame {
             }
         });
 
-        jlImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/main-icon.png"))); // NOI18N
+        jlImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/main-icon.png"))); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jlImage)
-                .addGap(0, 477, Short.MAX_VALUE))
+                .addComponent(jlImage, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 491, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -67,7 +67,6 @@ public class MainView extends JFrame {
         vl.setLocationRelativeTo(this);
         vl.setVisible(true);
         
-//        jlImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/co/breno/botwarmory/view/images/main-icon.png")));
     }//GEN-LAST:event_formWindowOpened
 
     /**
@@ -77,7 +76,7 @@ public class MainView extends JFrame {
         /* Set look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Initializing FlatLaf style ">
         try {
-            UIManager.setLookAndFeel( new FlatLightLaf() );
+            UIManager.setLookAndFeel( new FlatDarkLaf() );
         } catch( Exception ex ) {
             System.err.println( "Failed to initialize LaF due to " + ex.getMessage() );
         }

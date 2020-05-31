@@ -5,7 +5,7 @@
  */
 package co.breno.botwarmory.view.login;
 
-import com.formdev.flatlaf.FlatLightLaf;
+import com.formdev.flatlaf.*;
 import javax.swing.*;
 
 /**
@@ -43,7 +43,6 @@ public class ViewLogin extends JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Login");
         setName("jdLogin"); // NOI18N
-        setPreferredSize(new java.awt.Dimension(300, 150));
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
@@ -94,12 +93,11 @@ public class ViewLogin extends JDialog {
                             .addComponent(jtUsername)
                             .addComponent(jtPassword)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 21, Short.MAX_VALUE)
+                        .addGap(0, 15, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jlUserTip, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jlPasswordTip)
-                                .addGap(20, 20, 20)))
+                            .addComponent(jlPasswordTip))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jbCancel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jbLogin)))
@@ -165,7 +163,7 @@ public class ViewLogin extends JDialog {
         /* Set look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Initializing FlatLaf style ">
         try {
-            UIManager.setLookAndFeel( new FlatLightLaf() );
+            UIManager.setLookAndFeel( new FlatDarkLaf() );
         } catch( Exception ex ) {
             System.err.println( "Failed to initialize LaF due to " + ex.getMessage() );
         }
