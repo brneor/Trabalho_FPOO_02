@@ -43,19 +43,19 @@ public class MainView extends JFrame {
             }
         });
 
-        jlImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/co/breno/botwarmory/view/images/three_books.png"))); // NOI18N
+        jlImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/main-icon.png"))); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jlImage, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 594, Short.MAX_VALUE))
+                .addComponent(jlImage)
+                .addGap(0, 477, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jlImage, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
+            .addComponent(jlImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -67,8 +67,6 @@ public class MainView extends JFrame {
         vl.setLocationRelativeTo(this);
         vl.setVisible(true);
         
-        System.out.println(getClass().getResource("/co/breno/botwarmory/view/images/main-icon.png"));
-        System.out.println(getClass().getResource("Images/main-icon.png"));
 //        jlImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/co/breno/botwarmory/view/images/main-icon.png")));
     }//GEN-LAST:event_formWindowOpened
 

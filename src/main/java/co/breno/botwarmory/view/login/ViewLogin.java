@@ -133,7 +133,7 @@ public class ViewLogin extends JDialog {
 
     private void jbCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCancelActionPerformed
         // Se cancela o login, finaliza a aplicação.
-        System.exit(0);
+//        System.exit(0);
     }//GEN-LAST:event_jbCancelActionPerformed
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
