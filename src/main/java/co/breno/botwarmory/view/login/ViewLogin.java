@@ -5,6 +5,7 @@
  */
 package co.breno.botwarmory.view.login;
 
+import co.breno.botwarmory.view.MainView;
 import com.formdev.flatlaf.*;
 import javax.swing.*;
 

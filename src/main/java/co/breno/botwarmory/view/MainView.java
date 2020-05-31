@@ -8,6 +8,8 @@ package co.breno.botwarmory.view;
 import co.breno.botwarmory.view.login.ViewLogin;
 import com.formdev.flatlaf.*;
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.awt.Toolkit;
 
 /**
  *
@@ -19,6 +21,18 @@ public class MainView extends JFrame {
      * Creates new form MainView
      */
     public MainView() {
+        // Resolve o problema do nome da aplicação no Gnome.
+        try {
+            Toolkit xToolkit = Toolkit.getDefaultToolkit();
+            java.lang.reflect.Field awtAppClassNameField =
+                xToolkit.getClass().getDeclaredField("awtAppClassName");
+            awtAppClassNameField.setAccessible(true);
+            awtAppClassNameField.set(xToolkit, "Breath of the Wild Armory");
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+        
+        // Inicializa os componentes
         initComponents();
     }
 
@@ -32,10 +46,25 @@ public class MainView extends JFrame {
     private void initComponents() {
 
         jlImage = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jtArmory = new javax.swing.JTable();
+        jbNewPiece = new javax.swing.JButton();
+        jbEdit = new javax.swing.JButton();
+        jbDelete = new javax.swing.JButton();
+        jmbMainMenu = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jmNewPiece = new javax.swing.JMenuItem();
+        jSeparator1 = new javax.swing.JPopupMenu.Separator();
+        jmExit = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        jmInventory = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Breath of the Wild Armory");
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/images/app-icon.png"))
+        );
         setMinimumSize(new java.awt.Dimension(720, 350));
+        setName("jfMainView"); // NOI18N
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
@@ -45,17 +74,102 @@ public class MainView extends JFrame {
 
         jlImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/main-icon.png"))); // NOI18N
 
+        jtArmory.setAutoCreateRowSorter(true);
+        jtArmory.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Set", "Piece", "Current level"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jtArmory.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jScrollPane1.setViewportView(jtArmory);
+
+        jbNewPiece.setText("New piece");
+
+        jbEdit.setText("Edit");
+
+        jbDelete.setText("Delete");
+
+        jMenu1.setText("File");
+
+        jmNewPiece.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
+        jmNewPiece.setText("New piece...");
+        jMenu1.add(jmNewPiece);
+        jMenu1.add(jSeparator1);
+
+        jmExit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Q, java.awt.event.InputEvent.CTRL_MASK));
+        jmExit.setText("Exit");
+        jmExit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmExitActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jmExit);
+
+        jmbMainMenu.add(jMenu1);
+
+        jMenu2.setText("Edit");
+
+        jmInventory.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, java.awt.event.InputEvent.CTRL_MASK));
+        jmInventory.setText("Inventory");
+        jmInventory.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmInventoryActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jmInventory);
+
+        jmbMainMenu.add(jMenu2);
+
+        setJMenuBar(jmbMainMenu);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jlImage, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 491, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 479, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jbDelete)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jbEdit)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jbNewPiece)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jlImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jbNewPiece)
+                    .addComponent(jbEdit)
+                    .addComponent(jbDelete))
+                .addContainerGap())
         );
 
         pack();
@@ -67,7 +181,23 @@ public class MainView extends JFrame {
         vl.setLocationRelativeTo(this);
         vl.setVisible(true);
         
+        // Dummy data:
+        DefaultTableModel model = (DefaultTableModel) jtArmory.getModel();
+        model.addRow(new Object[]{"Soldier Set", "Head", "2"});
+        model.addRow(new Object[]{"Soldier Set", "Body", "3"});
+        model.addRow(new Object[]{"Soldier Set", "Legs", "1"});
+        model.addRow(new Object[]{"Hylian Set", "Head", "2"});
+        model.addRow(new Object[]{"Hylian Set", "Body", "3"});
+        
     }//GEN-LAST:event_formWindowOpened
+
+    private void jmInventoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmInventoryActionPerformed
+        // Abre o form de inventário
+    }//GEN-LAST:event_jmInventoryActionPerformed
+
+    private void jmExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmExitActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_jmExitActionPerformed
 
     /**
      * @param args the command line arguments
@@ -91,8 +221,20 @@ public class MainView extends JFrame {
             }
         });
     }
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JButton jbDelete;
+    private javax.swing.JButton jbEdit;
+    private javax.swing.JButton jbNewPiece;
     private javax.swing.JLabel jlImage;
+    private javax.swing.JMenuItem jmExit;
+    private javax.swing.JMenuItem jmInventory;
+    private javax.swing.JMenuItem jmNewPiece;
+    private javax.swing.JMenuBar jmbMainMenu;
+    private javax.swing.JTable jtArmory;
     // End of variables declaration//GEN-END:variables
 }
