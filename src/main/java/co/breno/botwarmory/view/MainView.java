@@ -5,7 +5,11 @@
  */
 package co.breno.botwarmory.view;
 
-import co.breno.botwarmory.view.login.ViewLogin;
+import co.breno.botwarmory.model.Item;
+import co.breno.botwarmory.view.armorpiece.add.APAdd;
+import co.breno.botwarmory.view.armorpiece.upgrade.APUpgrade;
+import co.breno.botwarmory.view.inventory.Inventory;
+import co.breno.botwarmory.view.login.Login;
 import com.formdev.flatlaf.*;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -56,8 +60,8 @@ public class MainView extends JFrame {
         jmNewPiece = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         jmExit = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
-        jmInventory = new javax.swing.JMenuItem();
+        jmInventory = new javax.swing.JMenu();
+        jmInventoryOpen = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Breath of the Wild Armory");
@@ -84,7 +88,7 @@ public class MainView extends JFrame {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false
@@ -100,10 +104,23 @@ public class MainView extends JFrame {
         });
         jtArmory.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(jtArmory);
+        if (jtArmory.getColumnModel().getColumnCount() > 0) {
+            jtArmory.getColumnModel().getColumn(2).setPreferredWidth(20);
+        }
 
         jbNewPiece.setText("New piece");
+        jbNewPiece.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbNewPieceActionPerformed(evt);
+            }
+        });
 
-        jbEdit.setText("Edit");
+        jbEdit.setText("Upgrade");
+        jbEdit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbEditActionPerformed(evt);
+            }
+        });
 
         jbDelete.setText("Delete");
 
@@ -125,18 +142,18 @@ public class MainView extends JFrame {
 
         jmbMainMenu.add(jMenu1);
 
-        jMenu2.setText("Edit");
-
-        jmInventory.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, java.awt.event.InputEvent.CTRL_MASK));
         jmInventory.setText("Inventory");
-        jmInventory.addActionListener(new java.awt.event.ActionListener() {
+
+        jmInventoryOpen.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, java.awt.event.InputEvent.CTRL_MASK));
+        jmInventoryOpen.setText("Open");
+        jmInventoryOpen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmInventoryActionPerformed(evt);
+                jmInventoryOpenActionPerformed(evt);
             }
         });
-        jMenu2.add(jmInventory);
+        jmInventory.add(jmInventoryOpen);
 
-        jmbMainMenu.add(jMenu2);
+        jmbMainMenu.add(jmInventory);
 
         setJMenuBar(jmbMainMenu);
 
@@ -176,7 +193,7 @@ public class MainView extends JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        ViewLogin vl = new ViewLogin(this, true);
+        Login vl = new Login(this, true);
         
         vl.setLocationRelativeTo(this);
         vl.setVisible(true);
@@ -191,13 +208,34 @@ public class MainView extends JFrame {
         
     }//GEN-LAST:event_formWindowOpened
 
-    private void jmInventoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmInventoryActionPerformed
-        // Abre o form de inventário
-    }//GEN-LAST:event_jmInventoryActionPerformed
+    private void jmInventoryOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmInventoryOpenActionPerformed
+        JDialog inventory = new Inventory(this, true);
+        inventory.setLocationRelativeTo(this);
+        inventory.setVisible(true);
+    }//GEN-LAST:event_jmInventoryOpenActionPerformed
 
     private void jmExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmExitActionPerformed
         this.dispose();
     }//GEN-LAST:event_jmExitActionPerformed
+
+    private void jbNewPieceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbNewPieceActionPerformed
+        JDialog addPiece = new APAdd(this, true);
+        addPiece.setLocationRelativeTo(this);
+        addPiece.setVisible(true);
+    }//GEN-LAST:event_jbNewPieceActionPerformed
+
+    private void jbEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEditActionPerformed
+        if (jtArmory.getSelectedRow() > -1) {
+            Item armorPiece = new Item();
+            armorPiece.setSetName(jtArmory.getValueAt(jtArmory.getSelectedRow(), 0).toString());
+            armorPiece.setSetPiece(jtArmory.getValueAt(jtArmory.getSelectedRow(), 1).toString());
+            armorPiece.setCurrentLevel(Integer.parseInt(jtArmory.getValueAt(jtArmory.getSelectedRow(), 2).toString()));
+
+            JDialog editPiece = new APUpgrade(this, true, armorPiece);
+            editPiece.setLocationRelativeTo(this);
+            editPiece.setVisible(true);
+        }
+    }//GEN-LAST:event_jbEditActionPerformed
 
     /**
      * @param args the command line arguments
@@ -224,7 +262,6 @@ public class MainView extends JFrame {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JButton jbDelete;
@@ -232,7 +269,8 @@ public class MainView extends JFrame {
     private javax.swing.JButton jbNewPiece;
     private javax.swing.JLabel jlImage;
     private javax.swing.JMenuItem jmExit;
-    private javax.swing.JMenuItem jmInventory;
+    private javax.swing.JMenu jmInventory;
+    private javax.swing.JMenuItem jmInventoryOpen;
     private javax.swing.JMenuItem jmNewPiece;
     private javax.swing.JMenuBar jmbMainMenu;
     private javax.swing.JTable jtArmory;

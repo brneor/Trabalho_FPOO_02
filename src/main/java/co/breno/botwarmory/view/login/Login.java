@@ -13,12 +13,14 @@ import javax.swing.*;
  *
  * @author breno
  */
-public class ViewLogin extends JDialog {
+public class Login extends JDialog {
+    
+    private boolean blnLoggedIn = false;
 
     /**
      * Creates new form ViewLogin
      */
-    public ViewLogin(java.awt.Frame parent, boolean modal) {
+    public Login(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
@@ -132,12 +134,15 @@ public class ViewLogin extends JDialog {
 
     private void jbCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCancelActionPerformed
         // Se cancela o login, finaliza a aplicação.
+        this.dispose();
 //        System.exit(0);
     }//GEN-LAST:event_jbCancelActionPerformed
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        // Se cancela o login, finaliza a aplicação.
-//        System.exit(0);
+        // Se a tela foi fechada sem efetuar login, finaliza a aplicação.
+        if (!blnLoggedIn) {
+            System.exit(0);
+        }
     }//GEN-LAST:event_formWindowClosed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
@@ -149,6 +154,7 @@ public class ViewLogin extends JDialog {
 
     private void jbLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbLoginActionPerformed
         if (jtUsername.getText().equals("breno") && jtPassword.getText().equals("fwq321")) {
+            blnLoggedIn = true;
             System.out.println("Logando...");
             dispose();
         } else {
@@ -173,7 +179,7 @@ public class ViewLogin extends JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                ViewLogin dialog = new ViewLogin(new javax.swing.JFrame(), true);
+                Login dialog = new Login(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
