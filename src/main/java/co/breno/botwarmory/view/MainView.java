@@ -6,6 +6,7 @@
 package co.breno.botwarmory.view;
 
 import co.breno.botwarmory.model.Item;
+import co.breno.botwarmory.model.database.connection.ConnectionSingleton;
 import co.breno.botwarmory.view.armorpiece.add.APAdd;
 import co.breno.botwarmory.view.armorpiece.upgrade.APUpgrade;
 import co.breno.botwarmory.view.inventory.Inventory;

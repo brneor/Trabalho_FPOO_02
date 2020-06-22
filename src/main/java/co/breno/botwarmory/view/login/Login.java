@@ -5,8 +5,12 @@
  */
 package co.breno.botwarmory.view.login;
 
+import co.breno.botwarmory.exception.NotConnectionException;
+import co.breno.botwarmory.model.database.connection.ConnectionSingleton;
 import co.breno.botwarmory.view.MainView;
 import com.formdev.flatlaf.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
 
 /**
@@ -150,6 +154,13 @@ public class Login extends JDialog {
         jlUserTip.setVisible(false);
         
         this.getRootPane().setDefaultButton(jbLogin);
+        
+        var connection = new ConnectionSingleton();
+        try {
+            connection.getConnection();
+        } catch (NotConnectionException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_formWindowOpened
 
     private void jbLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbLoginActionPerformed
